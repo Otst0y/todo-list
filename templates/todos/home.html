@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>TODO list <a href="{% url 'todos:todo_create' %}" style="float: right" class="btn btn-primary">Add task</a></h1>
+  <br>
+  {% for todo in task_list %}
+    <p><strong>{{ todo.content }}</strong>
+      {% if todo.is_done %}
+        <h7 class="text-success"><strong>Done</strong></h7>
+      {% else %}
+        <h7 class="text-danger"><strong>Not done</strong></h7>
+      {% endif %}
+    </p>
+    {% if todo.is_done %}
+      <a href="{% url 'todos:toggle_task' todo.pk %}" class="btn btn-secondary" style="float: right">Undo</a>
+    {% else %}
+      <a href="{% url 'todos:toggle_task' todo.pk %}" class="btn btn-success" style="float: right">Complete</a>
+    {% endif %}
+    <p>Created: {{ todo.created }} {% if todo.deadline %} <span class="text-danger">Deadline: {{ todo.deadline }}</span> {% endif %}</p>
+    <h6 class="text-secondary">Tags:
+      {% for tag in todo.tags.all %}
+        {{ tag }}
+      {% endfor %}
+      <a href="{% url 'todos:todo_update' todo.pk %}">Update</a>
+      <a href="{% url 'todos:todo_delete' todo.pk %}">Delete</a>
+    </h6>
+    <hr>
+  {% endfor %}
+
+{% endblock %}
