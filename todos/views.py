@@ -2,7 +2,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
-from todos.forms import TodoUpdateForm
+from todos.forms import TodoUpdateForm, TodoCreateForm
 from todos.models import Task, Tag
 
 
@@ -13,13 +13,9 @@ class TodosListView(generic.ListView):
 
 class TodosCreateView(generic.CreateView):
     model = Task
-    fields = ["content", "deadline", "is_done", "tags"]
+    form_class = TodoCreateForm
     success_url = reverse_lazy("todos:home")
     template_name = "todos/task_create.html"
-
-    initial = {
-        "deadline": "2020-12-12 12:00"
-    }
 
 
 class TodosUpdateView(generic.UpdateView):
