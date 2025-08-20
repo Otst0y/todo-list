@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h3>Are you sure you want to delete a task?</h3>
+  <form action="" method="post">
+    {% csrf_token %}
+    <a href="{% url 'todos:home' %}" class="btn btn-primary">Cancel</a>
+    <input type="submit" value="Delete" class="btn btn-danger">
+  </form>
+{% endblock %}
